@@ -33,7 +33,7 @@ python manage.py runserver 3000
 
 {Make a list of websites that you found helpful in this project}
 * [Django documentation](https://docs.djangoproject.com/en/6.0/)
-* [Web Site Name](http://url.link.goes.here)
+* [Jinja documentation](https://jinja.palletsprojects.com/en/stable/)
 
 # Future Work
 
