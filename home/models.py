@@ -4,6 +4,9 @@ from django.db import models
 class Category(models.Model):
     name = models.CharField(max_length=200)
 
+    def __str__(self):
+        return self.name
+
 class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.DO_NOTHING)
     brand = models.CharField(max_length=200)
@@ -14,4 +17,7 @@ class Product(models.Model):
     discount = models.FloatField() 
     quantity = models.IntegerField()
     image = models.BinaryField()
+
+    def __str__(self):
+        return self.category.name + ' ' + self.brand + ' ' + self.model
 
