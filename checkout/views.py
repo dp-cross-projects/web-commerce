@@ -1,8 +1,12 @@
 from django.http import HttpResponse
 
-# Create your views here.
-def hello(request):
-    return HttpResponse("<h1>Hello World</h1>")
+# Backend CheckOut Functions
+# Get all checkout?
 
-def about(request):
-    return HttpResponse("about")
+# Get a checkout by id
+
+# Create a checkout
+
+# Update a checkout
+
+# Delete a checkout

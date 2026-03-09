@@ -8,14 +8,14 @@ class UserData(models.Model):
     name = models.CharField(max_length=200)
     surname = models.CharField(max_length=200)
     address = models.CharField(max_length=200)
-    zip_code = models.IntegerField(max_length=5)
+    zip_code = models.IntegerField()
     province = models.CharField(max_length=200)
-    phone = models.IntegerField(max_length=12)
+    phone = models.IntegerField()
 
 class UserHistory(models.Model):
     user = models.ForeignKey(UserData, on_delete=models.CASCADE)
     date = models.DateTimeField()
-    product = models.ForeignKey(Product)
+    product = models.ForeignKey(Product, on_delete=models.DO_NOTHING)
     category = models.CharField(max_length=200)
     brand = models.CharField(max_length=200)
     model = models.CharField(max_length=200)
