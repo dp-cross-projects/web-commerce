@@ -39,39 +39,14 @@ def delete_product(request,id):
     Product.objects.delete(Product.objects.get(id=id))
     return
 
+
+## Frontend functions
 # Create your views here.
-# def home(request):
-#     return render(request, 'index.html')
+def home_page(request):
+    products = get_product(request)
+    return render(request, 'index.html', {
+        'products':products
+    })
 
-# def hello(request, user):
-#     return HttpResponse("<h1>Hello %s</h1>" % user)
-
-# def about(request):
-#     return HttpResponse("about")
-
-# def projects(request):
-#     projects = list(Project.objects.values())
-#     return JsonResponse(projects, safe=False)
-
-# def tasks(request):
-#     # task = Task.objects.get(id=id)
-#     # task = get_object_or_404(Task, id=id)
-#     # return HttpResponse("Task: " % task.title)
-#     tasks = list(Task.objects.all())
-#     return render(request, 'tasks.html', {
-#         'tasks': tasks
-#     })
-
-# def render_project(request, id):
-#     title = Project.objects.get(id=id)
-#     return render(request, 'project.html', {
-#         'title': title.name
-#     })
-
-# def create_task(request):
-#     return render(request, 'new_task.html', {
-#         'form': CreateTask()
-#     })
-
-
-
+def about(request):
+    return HttpResponse("about")

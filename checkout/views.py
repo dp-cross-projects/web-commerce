@@ -1,4 +1,5 @@
 from django.http import HttpResponse
+from django.shortcuts import render
 from .models import CheckOut
 
 # Backend CheckOut Functions
@@ -24,3 +25,7 @@ def create_checkout(request):
 def delete_checkout(request, id):
     CheckOut.objects.delete(CheckOut.objects.get(id=id))
     return
+
+## Frontend functions
+def checkout_page(request):
+    return render(request, 'checkout/cart.html')
