@@ -5,9 +5,10 @@ from .models import CheckOut
 # Backend CheckOut Functions
 # Get all checkout?
 
-# Get a checkout by id
-def get_checkout(request, id):
-    checkout_item = list(CheckOut.objects.get(id=id))
+# Get a checkout by user
+def get_checkout(request):
+    checkout_item = list(CheckOut.objects.filter(user=request.user))
+    print(checkout_item)
     return checkout_item
 
 # Create a checkout
@@ -28,4 +29,7 @@ def delete_checkout(request, id):
 
 ## Frontend functions
 def checkout_page(request):
-    return render(request, 'checkout/cart.html')
+    cart = get_checkout(request)
+    return render(request, 'checkout/cart.html',{
+        'cart':cart
+    })

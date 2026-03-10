@@ -7,9 +7,10 @@ from .models import UserHistory, UserOrder
 # Get all user profiles?
 
 # Get a user by id
-def get_userdata(request, id):
-    user_data = list(User.objects.get(id=id))
-    return user_data
+# def get_userdata(request):
+#     user_data = User.objects.get(username=request.user)
+#     # print(user_data.username)
+#     return user_data
 
 # Create a user
 # def create_or_update_user_data(request, id):
@@ -41,7 +42,7 @@ def get_user_order(request):
     return user_order
 
 # Get user oder by id
-def get_user_order_by_id(request, id):
+def get_user_order_by_id(request):
     user_order = list(UserOrder.objects.get(id=id))
     return user_order
 
@@ -77,4 +78,6 @@ def create_user_history(request):
 
 ## Frontend functions
 def user_page(request):
-    return render(request, 'user/user_profile.html')
+    return render(request, 'user/user_profile.html',{
+        'userdata':request.user
+    })
