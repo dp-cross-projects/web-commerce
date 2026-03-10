@@ -3,37 +3,6 @@ from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from .models import UserHistory, UserOrder
 from checkout.models import CheckOut
-# Backend User Profile Functions
-# Get all user profiles?
-
-# Get a user by id
-# def get_userdata(request):
-#     user_data = User.objects.get(username=request.user)
-#     # print(user_data.username)
-#     return user_data
-
-# Create a user
-# def create_or_update_user_data(request, id):
-#     if(id):
-#         print("Update user data")
-#         return
-#     else:
-#         UserData.objects.create(
-#             user_data = request.user_data,
-#             name = request.name,
-#             surname = request.surname,
-#             address = request.address,
-#             zip_code = request.zip_code,
-#             province = request.province,
-#             phone = request.phone
-#         )
-#         return
-
-# Delete a user
-# def delete_user(request, id):
-#     UserData.objects.delete(UserData.objects.get(id=id))
-#     return
-
 
 # Backend User Order Functions
 # Get user oder
@@ -45,8 +14,6 @@ def get_user_order(request):
 def get_user_order_by_id(request):
     user_order = list(UserOrder.objects.get(id=id))
     return user_order
-
-
 
 # Backend User History Functions
 # Get all user_history profiles?
@@ -69,16 +36,9 @@ def create_user_history(request):
     )
     return
 
-# Update a user_history
-
-# Delete a user_history
-
-
-
-
 ## Frontend functions
 def user_page(request):
-    user = request.user,
+    user = request.user
     user_order = UserOrder.objects.filter(user=request.user)
     user_history = []
     for item in user_order:
@@ -95,13 +55,26 @@ def user_page(request):
 def complete_purchase(request):
     cart = CheckOut.objects.filter(user=request.user)
 
+    total_amount = 0
+
+    for item in cart:
+        # Price
+        price = (item.product.price * item.quantity)
+        # Discount
+        discount = 1 - item.product.discount
+        # Tax
+        tax = 1 + item.product.tax
+
+        total_amount += (price * discount * tax)
+
     # Create User Order
     user_order = UserOrder.objects.create(
         user = request.user,
         address = request.POST['address'],
         zip_code = request.POST['zip_code'],
         province = request.POST['province'],
-        phone = request.POST['phone']
+        phone = request.POST['phone'],
+        total_amount = total_amount
     )
 
     # (for) Create User History
@@ -111,8 +84,9 @@ def complete_purchase(request):
             product=item.product,
             category=item.product.category,
             brand=item.product.brand,
-            model=item.product.model,
-            total_amount=0
+            model=item.product.model
         )
+
+    cart.delete()
     return redirect('/user')
      

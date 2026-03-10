@@ -1,7 +1,7 @@
 {% extends 'layout/layout.html' %}
 
 {% block content %}
-    <h1>CART</h1>
+    <h1>CART ${{ total_amount }}</h1>
     {% if user.is_authenticated %}
         
         {% for item in cart %}

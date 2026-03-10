@@ -1,5 +1,5 @@
 from django.contrib import admin
 from .models import CheckOut
 
-# Register your models here.
+# Register model CheckOut
 admin.site.register(CheckOut)

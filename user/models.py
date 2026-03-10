@@ -9,6 +9,7 @@ class UserOrder(models.Model):
     zip_code = models.IntegerField()
     province = models.CharField(max_length=200)
     phone = models.IntegerField()
+    total_amount = models.FloatField()
 
     def __str__(self):
         return str(self.date) + self.user.last_name + ', ' + self.user.first_name
@@ -19,8 +20,8 @@ class UserHistory(models.Model):
     category = models.CharField(max_length=200)
     brand = models.CharField(max_length=200)
     model = models.CharField(max_length=200)
-    total_amount = models.FloatField()
+    
 
     def __str__(self):
-        return self.user_order.user.last_name + ' - ' + self.product.brand + ' - ' + str(self.total_amount)
+        return self.user_order.user.last_name + ' - ' + self.product.brand
     

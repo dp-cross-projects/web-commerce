@@ -16,7 +16,7 @@ class Product(models.Model):
     tax = models.FloatField()
     discount = models.FloatField() 
     quantity = models.IntegerField()
-    image = models.BinaryField()
+    image = models.CharField()
 
     def __str__(self):
         return self.category.name + ' ' + self.brand + ' ' + self.model

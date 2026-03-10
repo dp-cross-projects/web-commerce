@@ -1,5 +1,6 @@
 from django import forms
 
+# This class is for Purchase Form
 class PurchaseForm(forms.Form):
     address = forms.CharField(max_length=200, label='Address')
     zip_code = forms.IntegerField(label='Zip Code')
