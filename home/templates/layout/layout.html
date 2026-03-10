@@ -4,13 +4,17 @@
 <h1>Welcome to Computer Commerce!</h1>
 {# NAVIGATION BAR #}
 
+
 <nav>
     <ul>
         <li><a href='/'>Home</a></li>
+        {% if user.is_authenticated %}
         <li><a href='/user'>Profile</a></li>
         <li><a href='/checkout'>Cart</a></li>
+        {% endif %}
     </ul>
 </nav>
+
 
 {% block content %}
 {% endblock %}

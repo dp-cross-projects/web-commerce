@@ -78,6 +78,8 @@ def create_user_history(request):
 
 ## Frontend functions
 def user_page(request):
+    user = request.user
     return render(request, 'user/user_profile.html',{
+        'user':user,
         'userdata':request.user
     })

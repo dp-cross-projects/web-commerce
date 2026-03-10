@@ -14,7 +14,14 @@
     <span>Tax: ${{ product.tax }}</span>
     <span>Discount: ${{ product.discount }}</span>
     <span>Availability: {{ product.quantity }}</span>
-    
+
+    {% if user.is_authenticated %}
+    <form action="/checkout/{{ user.id  }}/{{ product.id }}" method="POST">
+        {% csrf_token %}
+        <button>Add to Cart</button>
+    </form>
+    {% endif %}
+
 </div>
 
 {% endfor %}

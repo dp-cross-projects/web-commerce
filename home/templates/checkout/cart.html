@@ -9,6 +9,14 @@
 <p>{{item.product.model}}</p>
 <p>${{item.product.price}}</p>
 <p>Quantity: {{item.quantity}}</p>
+
+{% if user.is_authenticated %}
+    <form action="/checkout/remove/{{ item.id }}" method="POST">
+        {% csrf_token %}
+        <button>Remove from Cart</button>
+    </form>
+    {% endif %}
+
 {% endfor %}
 
 {% endblock %}

@@ -1,7 +1,7 @@
 from django.http import HttpResponse, JsonResponse
 from .models import Product
 from django.shortcuts import get_object_or_404, render
-from .forms import CreateTask
+
 
 # Backend Products Functions
 # Get all products
@@ -44,7 +44,9 @@ def delete_product(request,id):
 # Create your views here.
 def home_page(request):
     products = get_product(request)
+    user = request.user
     return render(request, 'index.html', {
+        'user':user,
         'products':products
     })
 
