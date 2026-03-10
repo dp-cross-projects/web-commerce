@@ -1,23 +1,38 @@
 {% extends 'layout/layout.html' %}
 
 {% block content %}
+    <h1>CART</h1>
+    {% if user.is_authenticated %}
+        
+        {% for item in cart %}
+            <p>{{item.product.category.name}}</p>
+            <p>{{item.product.brand}}</p>
+            <p>{{item.product.model}}</p>
+            <p>${{item.product.price}}</p>
+            <p>Quantity: {{item.quantity}}</p>
 
-<h1>CART</h1>
-{% for item in cart %}
-<p>{{item.product.category.name}}</p>
-<p>{{item.product.brand}}</p>
-<p>{{item.product.model}}</p>
-<p>${{item.product.price}}</p>
-<p>Quantity: {{item.quantity}}</p>
+                    
+            <form action="/checkout/remove/{{ item.id }}" method="POST">
+                {% csrf_token %}
+                <button>Remove from Cart</button>
+            </form>
+        {% endfor %}            
 
-{% if user.is_authenticated %}
-    <form action="/checkout/remove/{{ item.id }}" method="POST">
-        {% csrf_token %}
-        <button>Remove from Cart</button>
-    </form>
+        <form action="/user/purchase" method="POST">
+            {% csrf_token %}
+
+            {{ purchase_form }}
+
+
+            <button>Complete Purchase</button>
+        </form>
+                
+
+    
     {% endif %}
 
-{% endfor %}
+
+
 
 {% endblock %}
 

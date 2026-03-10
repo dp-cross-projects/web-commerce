@@ -1,8 +1,8 @@
 from django.http import HttpResponse
 from django.contrib.auth.models import User
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import UserHistory, UserOrder
-
+from checkout.models import CheckOut
 # Backend User Profile Functions
 # Get all user profiles?
 
@@ -83,3 +83,29 @@ def user_page(request):
         'user':user,
         'userdata':request.user
     })
+
+
+def complete_purchase(request):
+    cart = CheckOut.objects.filter(user=request.user)
+
+    # Create User Order
+    user_order = UserOrder.objects.create(
+        user = request.user,
+        address = request.POST['address'],
+        zip_code = request.POST['zip_code'],
+        province = request.POST['province'],
+        phone = request.POST['phone']
+    )
+
+    # (for) Create User History
+    for item in cart:
+        UserHistory.objects.create(
+            user_order=user_order,
+            product=item.product,
+            category=item.product.category,
+            brand=item.product.brand,
+            model=item.product.model,
+            total_amount=0
+        )
+    return redirect('/user')
+     

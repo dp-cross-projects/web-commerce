@@ -1,7 +1,8 @@
-# from django.forms import ModelForm
-# from .models import CheckOut
+from django import forms
 
-# class CreateCheckout(ModelForm):
-#     class Cart:
-#         model = CheckOut
-#         fields = ['user', 'product', 'quantity']
+class PurchaseForm(forms.Form):
+    address = forms.CharField(max_length=200, label='Address')
+    zip_code = forms.IntegerField(label='Zip Code')
+    province = forms.CharField(max_length=200, label='Province')
+    phone = forms.IntegerField(label='Phone')
+    

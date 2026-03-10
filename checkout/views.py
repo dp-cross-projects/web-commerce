@@ -1,6 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from .models import CheckOut
+from .forms import PurchaseForm
 from django.contrib.auth.models import User
 from home.models import Product
 # from .forms import CreateCheckout
@@ -35,7 +36,8 @@ def checkout_page(request):
     cart = get_checkout(request)
     return render(request, 'checkout/cart.html',{
         'user':user,
-        'cart':cart
+        'cart':cart,
+        'purchase_form':PurchaseForm
     })
 
 def add_product_to_cart(request, user_id, product_id):
@@ -59,7 +61,6 @@ def remove_product_from_cart(request, cart_id):
     cart_item = CheckOut.objects.get(pk=cart_id)
 
     product_set = Product.objects.filter(id=cart_item.product.id)
-    # print(product.quantity)
         
     if(cart_item.quantity <= 1):
         cart_item.delete()
@@ -73,3 +74,5 @@ def remove_product_from_cart(request, cart_id):
                 product.save()
 
     return redirect('/checkout')
+
+
