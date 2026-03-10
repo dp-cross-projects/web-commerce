@@ -78,10 +78,17 @@ def create_user_history(request):
 
 ## Frontend functions
 def user_page(request):
-    user = request.user
+    user = request.user,
+    user_order = UserOrder.objects.filter(user=request.user)
+    user_history = []
+    for item in user_order:
+        user_history.append(UserHistory.objects.filter(user_order=item))        
+    
     return render(request, 'user/user_profile.html',{
-        'user':user,
-        'userdata':request.user
+        'user': user,
+        'userdata':request.user,
+        'user_order': user_order,
+        'user_history': user_history
     })
 
 

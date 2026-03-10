@@ -1,27 +1,48 @@
 {% extends 'layout/layout.html' %}
 
 {% block content %}
-<h1>User Profile</h1>
+    <h1>User Profile</h1>
 
-<div>
-    <h3>First Name</h3>
-    <span>{{userdata.first_name}}</span>
-</div>
+    <div>
+        <h3>First Name</h3>
+        <span>{{userdata.first_name}}</span>
+    </div>
 
-<div>
-    <h3>Last Name</h3>
-    <span>{{userdata.last_name}}</span>
-</div>
+    <div>
+        <h3>Last Name</h3>
+        <span>{{userdata.last_name}}</span>
+    </div>
 
-<div>
-    <h3>Email</h3>
-    <span>{{userdata.email}}</span>
-</div>
+    <div>
+        <h3>Email</h3>
+        <span>{{userdata.email}}</span>
+    </div>
 
 
-<div>
-    <h2>Purchase History</h2>
-    
-</div>
+    <div>
+        <h2>Purchase History</h2>
+        {% for item in user_order %}
+            
+            <div>
+                <h4>{{ item.date }}</h4>
+                <span>Address: {{ item.address }}</span>
+                <span>Zip Code: {{ item.zip_code }}</span>
+                <span>Province: {{ item.province }}</span>
+                <span>Phone: {{ item.phone }}</span>
+                <div>
+                    <h5></h5>
+                    {% for item_x in user_history %}
+                        {% for x in item_x %}
+                            {% if x.user_order == item %}
+                                <span>Product: {{ x.user_order.date }}</span>
+                            {% endif %}
+                        {% endfor %}
+                        
+                    {% endfor %}
+                </div>
+            </div>
+
+        {% endfor %}
+    </div>
 
 {% endblock %}
