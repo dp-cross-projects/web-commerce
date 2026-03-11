@@ -62,7 +62,7 @@ def add_product_to_cart(request, user_id, product_id):
         item.quantity += 1
         item.save()
     
-    # Always return to /checkout
+    # Always return to Home
     return redirect('/')
 
 ## Removes an item from cart

@@ -4,59 +4,42 @@ from django.shortcuts import render, redirect
 from .models import UserHistory, UserOrder
 from checkout.models import CheckOut
 
-# Backend User Order Functions
-# Get user oder
-def get_user_order(request):
-    user_order = list(UserOrder.objects.all())
-    return user_order
+## FRONTEND FUNCTIONS
 
-# Get user oder by id
-def get_user_order_by_id(request):
-    user_order = list(UserOrder.objects.get(id=id))
-    return user_order
-
-# Backend User History Functions
-# Get all user_history profiles?
-def get_user_history(request):
-    user_history = list(UserHistory.objects.all())
-    return user_history
-
-# Get a user_history by id
-
-# Create a user_history
-def create_user_history(request):
-    UserHistory.objects.create(
-        user = request.user,
-        date = request.date,
-        product = request.product,
-        category = request.category,
-        brand = request.brand,
-        model = request.model,
-        total_payment = request.total_payment
-    )
-    return
-
-## Frontend functions
+# Render User Profile
 def user_page(request):
+
+    # Get User logged
     user = request.user
+
+    # Get User Orders
     user_order = UserOrder.objects.filter(user=request.user)
+
+    # Init User purchased items from User History
     user_history = []
+
+    # Iterate and set User purchased items from User History
     for item in user_order:
+        # Filter items from User Order
         user_history.append(UserHistory.objects.filter(user_order=item))        
     
+    # Render User Profile using user data, user orders and
+    # user history filtered by user order
     return render(request, 'user/user_profile.html',{
         'user': user,
-        'userdata':request.user,
         'user_order': user_order,
         'user_history': user_history
     })
 
-
+# Complete purchase and move from cart to User Order & User History
 def complete_purchase(request):
+    # Get cart from user
     cart = CheckOut.objects.filter(user=request.user)
 
+    # Init total amount for operation
     total_amount = 0
 
+    # Set total amount from items in cart
     for item in cart:
         # Price
         price = (item.product.price * item.quantity)
@@ -65,9 +48,11 @@ def complete_purchase(request):
         # Tax
         tax = 1 + item.product.tax
 
+        # Calculate price by item using Price, Discount and Tax
         total_amount += (price * discount * tax)
 
-    # Create User Order
+    # Create User Order from /checkout form POST action,
+    # user data and total amount calculated
     user_order = UserOrder.objects.create(
         user = request.user,
         address = request.POST['address'],
@@ -77,7 +62,7 @@ def complete_purchase(request):
         total_amount = total_amount
     )
 
-    # (for) Create User History
+    # Copy items from cart to User History
     for item in cart:
         UserHistory.objects.create(
             user_order=user_order,
@@ -87,6 +72,9 @@ def complete_purchase(request):
             model=item.product.model
         )
 
+    # Clean the user cart
     cart.delete()
+
+    # Redirect to User Profile
     return redirect('/user')
      
