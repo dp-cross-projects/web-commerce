@@ -9,23 +9,30 @@ def signup(request):
     # If POST method used, then create a user
     if request.method == 'POST':
 
+        # Compare the passwords
         if request.POST['password1'] == request.POST['password2']:
+            # Try to save credentials into database
             try:
                 user = User.objects.create_user(
                     username=request.POST['username'],
                     password=request.POST['password1']
                 )
                 user.save()
+
+            # If the user exists, then return an error
             except IntegrityError:
                 return render(request, 'user/signup.html', {
                 'form': UserCreationForm,
                 'error': 'User already exists'
             })      
+        
+        # If password didn't match, then return an error
         else:
             return render(request, 'user/signup.html', {
                 'form': UserCreationForm,
                 'error': "Passwords did not match"
             })        
+        
         # Redirect to Home
         return redirect('/')
     

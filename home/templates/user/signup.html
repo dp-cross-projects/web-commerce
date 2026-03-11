@@ -1,3 +1,6 @@
+{% extends 'layout/layout.html' %}
+
+{% block content %}
 <h1>Sign Up</h1>
 <form action="/user/register/" method="POST">
     {% csrf_token %}
@@ -13,3 +16,4 @@
     <span>{{error}}</span>
     {% endif %}
 </form>
+{% endblock %}
