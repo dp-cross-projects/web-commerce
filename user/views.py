@@ -3,7 +3,8 @@ from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from .models import UserHistory, UserOrder
 from checkout.models import CheckOut
-
+# from django.forms import ModelForm
+from .forms import UserDataForm
 ## FRONTEND FUNCTIONS
 
 # Render User Profile
@@ -24,11 +25,12 @@ def user_page(request):
         user_history.append(UserHistory.objects.filter(user_order=item))        
     
     # Render User Profile using user data, user orders and
-    # user history filtered by user order
+    # user history filtered by user order, and user data form
     return render(request, 'user/user_profile.html',{
         'user': user,
         'user_order': user_order,
-        'user_history': user_history
+        'user_history': user_history,
+        'user_data_form': UserDataForm
     })
 
 # Complete purchase and move from cart to User Order & User History
