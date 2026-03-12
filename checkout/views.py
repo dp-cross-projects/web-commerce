@@ -34,7 +34,7 @@ def checkout_page(request):
     return render(request, 'checkout/cart.html',{
         'user':user,
         'cart':cart,
-        'total_amount': total_amount,
+        'total_amount': round(total_amount,2),
         'purchase_form':PurchaseForm
     })
 

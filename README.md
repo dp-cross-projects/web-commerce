@@ -13,7 +13,7 @@ _localhost:3000/_
 
 To access the Django Admin Panel:
 
-_localhost:3000/_
+_localhost:3000/admin_
 
 Credentials for Django Admin Panel:
 ```

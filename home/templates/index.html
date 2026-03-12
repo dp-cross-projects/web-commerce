@@ -3,18 +3,15 @@
 {% block content %}
 
     {# HERO IMG#}
-    <img src="/static/hero.jpg" alt="hero" width="500px" class="rounded mx-auto d-block">
+    <img src="/static/hero.jpg" alt="hero" width="500px" class="rounded mx-auto d-block mb-3">
 
     {# DISPLAY PRODUCTS #}
 
-
-
-    <!-- <div class="row row-cols-1 row-cols-md-3 g-4"> -->
-        <div class="card-group">
+    <div class="row row-cols-1 row-cols-md-4 g-4">
         {% for product in products %}
             <div class="col">
                 <div class="card h-100">
-                <img src="..." class="card-img-top" alt="...">
+                <img src="/static/products/{{ product.image }}" class="card-img-top img-fluid" alt="{{ product.category }}" max-width="220px">
                 <div class="card-body">
                         <h5 class="card-title">{{product.category}} {{ product.brand}} {{ product.model }}</h5>
                         <p class="card-text">{{ product.description }}</p>
