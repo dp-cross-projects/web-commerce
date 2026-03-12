@@ -41,7 +41,7 @@ class UserHistory(models.Model):
     category = models.CharField(max_length=200)
     brand = models.CharField(max_length=200)
     model = models.CharField(max_length=200)
-    
+    quantity = models.IntegerField(default=0)
     ## Used for identification on Admin Panel
     def __str__(self):
         return self.user_order.user.last_name + ' - ' + self.product.brand

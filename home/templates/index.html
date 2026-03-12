@@ -1,33 +1,43 @@
-{% extends 'layout/layout.html' %}
+{% extends 'base/base.html' %}
 
 {% block content %}
 
-{# Display Products #}
+    {# HERO IMG#}
+    <img src="/static/hero.jpg" alt="hero" width="500px" class="rounded mx-auto d-block">
 
-{% for product in products %}
-
-<div class="product">
-    
-    <h3>{{product.category}} {{ product.brand}} {{ product.model }}</h3>
-    <p>{{ product.description }}</p>
-    <span>Price: ${{ product.price }}</span>
-    <span>Tax: ${{ product.tax }}</span>
-    <span>Discount: ${{ product.discount }}</span>
-    <span>Availability: {{ product.quantity }}</span>
-
-    {% if user.is_authenticated %}
-    <form action="/checkout/{{ user.id  }}/{{ product.id }}" method="POST">
-        {% csrf_token %}
-        <button>Add to Cart</button>
-    </form>
-    {% endif %}
-
-</div>
-
-{% endfor %}
+    {# DISPLAY PRODUCTS #}
 
 
-{# End Display Products #}
+
+    <!-- <div class="row row-cols-1 row-cols-md-3 g-4"> -->
+        <div class="card-group">
+        {% for product in products %}
+            <div class="col">
+                <div class="card h-100">
+                <img src="..." class="card-img-top" alt="...">
+                <div class="card-body">
+                        <h5 class="card-title">{{product.category}} {{ product.brand}} {{ product.model }}</h5>
+                        <p class="card-text">{{ product.description }}</p>
+                        <ul class="list-group list-group-flush">
+                        
+                        <li class="list-group-item">Price: ${{ product.price }}</li>
+                        <li class="list-group-item">Discount: {% widthratio product.discount 1 100 %}%</li>
+                        <li class="list-group-item">Tax: {% widthratio product.tax 1 100 %}%</li>
+                        <li class="list-group-item">Stock: {{ product.quantity }}</li>
+                            </ul>
+                    {% if user.is_authenticated %}
+                    <div class="card-footer">
+                        <form action="/checkout/{{ user.id  }}/{{ product.id }}" method="POST">
+                            {% csrf_token %}
+                            <button class="btn btn-primary">Add to Cart</button>
+                        </form>
+                        </div>
+                    {% endif %}
+                </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
 
 {% endblock %}
 

@@ -82,7 +82,8 @@ def complete_purchase(request):
             product=item.product,
             category=item.product.category,
             brand=item.product.brand,
-            model=item.product.model
+            model=item.product.model,
+            quantity=item.quantity
         )
 
     # Clean the user cart
