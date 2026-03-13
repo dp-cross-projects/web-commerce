@@ -21,7 +21,7 @@ Username: admin
 Password: admin
 ```
 
-[Software Demo Video](http://youtube.link.goes.here)
+[Software Demo Video](https://www.youtube.com/watch?v=d6pb6od1G7w)
 
 # Web Pages
 The site has a navbar where the user can navigate through the site.
